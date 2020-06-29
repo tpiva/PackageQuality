@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./src -- --ext .json",
+    "lint:fix": "npm run lint -- --fix"
   },
   "keywords": [
     "Node",
@@ -15,15 +17,28 @@
   "author": "Thiago Piva Magalhaes",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "app-module-path": "^2.2.0",
     "dotenv": "^8.2.0",
     "koa": "^2.13.0",
-    "koa-cors": "0.0.16",
     "koa-router": "^9.0.1",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "log4js": "^6.3.0",
+    "require-all": "^3.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.3",
     "@babel/core": "^7.10.3",
-    "@babel/node": "^7.10.3"
+    "@babel/node": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/register": "^7.10.3",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-dynamic-import-node": "^2.3.3",
+    "babel-plugin-istanbul": "^6.0.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "eslint": "^7.3.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-json": "^2.1.1",
+    "eslint-plugin-node": "^11.1.0"
   }
 }

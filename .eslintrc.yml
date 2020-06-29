@@ -1,0 +1,60 @@
+
+root: true
+parser: babel-eslint
+env:
+    es6: true
+    node: true
+extends: 
+    - eslint:recommended
+    - plugin:json/recommended
+    - plugin:import/errors
+    - plugin:import/warnings
+parserOptions:
+    ecmaVersion: 2018
+    sourceType: module
+    allowImportExportEverywhere: true
+rules:
+    import/no-unresolved: 0
+    indent: ["error", 2]
+    quotes: ["warn", "single", {avoidEscape: true}]
+    quote-props: ["error", "as-needed"]
+    semi: "error"
+    comma-spacing: ["error", { "before": false, "after": true }]
+    max-len: ["error", 120, {
+        "ignoreComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
+    }]
+    sort-imports: ["warn", {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": false,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+    }]
+    eqeqeq: "warn"
+    no-empty: ["error", {allowEmptyCatch: true }]
+    no-dupe-args: "error"
+    no-dupe-keys: "error"
+    no-extra-semi: "error"
+    no-unreachable: "error"
+    no-constructor-return: "error"
+    no-empty-function: "error"
+    no-redeclare: "error"
+    no-useless-catch: "error"
+    no-unused-vars: "error"
+    no-const-assign: "error"
+    no-var: "error"
+    prefer-const: "error"
+    prefer-template: "error"
+globals:
+    it: true
+    describe: true
+    expect: true
+    sinon: true
+    before: true
+    beforeEach: true
+    after: true
+    afterEach: true
+      
