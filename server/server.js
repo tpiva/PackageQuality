@@ -1,7 +1,7 @@
-import config from '../../configs';
+import app from './app';
+import config from '../configs';
 import http from 'http';
 import log4js from 'log4js';
-import server from '../infra/init/server';
 
 const log = log4js.getLogger('app-server');
 const {
@@ -9,7 +9,7 @@ const {
   NODE_ENV
 } = config;
 
-server().then(app => {
+app().then(app => {
   
   // Starting both http & https servers
   const httpServer = http.createServer(app.callback());

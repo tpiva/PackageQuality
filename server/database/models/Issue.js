@@ -4,5 +4,13 @@ export default (sequelize, DataTypes) => {
     created: DataTypes.DATE
   }, {});
 
+  Issue.associate = (models) => {
+    Issue.belongsTo(models.Project, {
+      foreignKey: 'userId',
+      as: 'author',
+      onDelete: 'CASCADE',
+    });
+  };
+
   return Issue;
 };

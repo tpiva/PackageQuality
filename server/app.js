@@ -1,8 +1,8 @@
-import { health, project } from '../../interface/routes';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
-import { configureLogger } from '../logger/logger';
+import { configureLogger } from './logger/logger';
 import cors from '@koa/cors';
+import versions from './versions';
 
 export default async () => {
   configureLogger();
@@ -21,8 +21,14 @@ async function init() {
   });
 
   app.use(appRouter.routes());
-  app.use(health.routes());
-  app.use(project.routes());
+
+  for (const config of versions) {
+    const router = new KoaRouter({
+      prefix: config.basePath
+    });
+    config.routes(router);
+    app.use(router.routes());
+  }
 
   return app;
 }
