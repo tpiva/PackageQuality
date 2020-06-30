@@ -1,3 +1,4 @@
+import { health, project } from '../../interface/routes';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import { configureLogger } from '../logger/logger';
@@ -18,7 +19,10 @@ async function init() {
   appRouter.get('/', async (ctx) => {
     ctx.body = { state: 'Server is running...' };
   });
+
   app.use(appRouter.routes());
+  app.use(health.routes());
+  app.use(project.routes());
 
   return app;
 }

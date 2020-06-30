@@ -14,13 +14,13 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      total_issues: {
+      totalIssues: {
         type: Sequelize.INTEGER
       },
-      avg_issues: {
+      avgIssues: {
         type: Sequelize.INTEGER
       },
-      std_issues: {
+      stdIssues: {
         type: Sequelize.INTEGER
       },
       contributors: {
