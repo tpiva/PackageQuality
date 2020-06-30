@@ -1,18 +1,11 @@
-import { DataTypes, Model } from 'sequelize';
+export default (sequelize, DataTypes) => {
+  const Project = sequelize.define('Project', {
+    name: DataTypes.STRING,
+    totalIssue: DataTypes.INTEGER,
+    avgIssues: DataTypes.INTEGER,
+    stdIssues: DataTypes.INTEGER,
+    stars: DataTypes.STRING
+  }, {});
 
-class Project extends Model {
-  
-  static init(sequelize) {
-    super.init({
-      name: DataTypes.STRING,
-      totalIssue: DataTypes.INTEGER,
-      avgIssues: DataTypes.INTEGER,
-      stdIssues: DataTypes.INTEGER,
-      stars: DataTypes.STRING
-    }, {
-      sequelize
-    });
-  }
-}
-
-export default Project;
+  return Project;
+};
