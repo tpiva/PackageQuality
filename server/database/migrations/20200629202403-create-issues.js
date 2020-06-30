@@ -12,7 +12,18 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
+      projectId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'projects',
+          key: 'id'
+        }
+      },
       created: {
+        type: Sequelize.DATE
+      },
+      updated: {
         type: Sequelize.DATE
       }
     });
