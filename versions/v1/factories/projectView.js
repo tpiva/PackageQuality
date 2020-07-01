@@ -1,6 +1,6 @@
 import {Calculate, Request} from '../utils';
 import {IssueRepository, ProjectRepository} from '../repositories';
-import { map, omit, pick, split } from 'lodash';
+import { map, pick, split } from 'lodash';
 import config from 'configs';
 
 class ProjectView {

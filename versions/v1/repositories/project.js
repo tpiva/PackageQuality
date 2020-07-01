@@ -47,6 +47,11 @@ class ProjectRespository {
 
     return projects;
   }
+
+  async findOne(query) {
+    const issue = await models.Project.findOne(query);
+    return issue;
+  }
 }
 
 export default new ProjectRespository();

@@ -1,22 +1,22 @@
+import { handlerError, handlerSuccess } from './middlewares';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import { configureLogger } from './logger/logger';
 import cors from '@koa/cors';
 import versions from './versions';
 
-import factory from '../versions/v1/factories/projectView';
-
 export default async () => {
   configureLogger();
   const app = await init();
 
-  await factory.updateMetrics();
   return app;
 };
 
 async function init() {
   const app = new Koa();
   app.use(cors());
+  app.use(handlerError);
+  app.use(handlerSuccess);
 
   // Root of the application
   const appRouter = new KoaRouter();

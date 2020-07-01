@@ -1,0 +1,106 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Lib Quality API
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:3000
+tags: 
+- name: "projects"
+paths:
+  /:
+    get:
+      summary: Api info.
+      description: Returns if api is running.
+      responses:
+        '200':
+          description: Information if api is running.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state: 
+                    type: string
+  /v1/health:
+    get:
+      summary: Informations about API Health.
+      description: Returns informations about API Health.
+      responses:
+        '200':
+          description: Informations about API Health.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: string
+                    example:
+                      state: UP
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /v1/projects:
+    get:
+      tags:
+        - "projects"
+      summary: Project info
+      description: Return one project
+      parameters: 
+        - name: projectName
+          in: query
+          description: Name of project to search
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An project object
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/Project'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+components:
+  schemas:
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        issues:
+          type: integer
+        avg:
+          type: integer
+        std:
+          type: integer
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        details:
+          type: string

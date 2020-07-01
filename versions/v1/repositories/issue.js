@@ -54,6 +54,11 @@ class IssueRespository {
       return rows.concat(await this.findAll(page + 1, limit, query));
     }
   }
+
+  async findOne(query) {
+    const issue = await models.Issue.findOne(query);
+    return issue;
+  }
 }
 
 export default new IssueRespository();
