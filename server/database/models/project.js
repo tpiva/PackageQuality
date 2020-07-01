@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     name: DataTypes.STRING,
-    openIssues: DataTypes.INTEGER
+    openIssues: DataTypes.INTEGER,
+    avgTimeIssue: DataTypes.INTEGER,
+    stdTimeIssue: DataTypes.INTEGER
   }, {});
 
   project.associate = (models) => {

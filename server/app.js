@@ -4,13 +4,13 @@ import { configureLogger } from './logger/logger';
 import cors from '@koa/cors';
 import versions from './versions';
 
-import factory from '../versions/v1/factories/issueView';
+import factory from '../versions/v1/factories/projectView';
 
 export default async () => {
   configureLogger();
   const app = await init();
 
-  await factory.sync();
+  await factory.updateMetrics();
   return app;
 };
 

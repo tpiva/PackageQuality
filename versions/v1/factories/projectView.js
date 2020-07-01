@@ -1,6 +1,6 @@
-import { map, pick, split } from 'lodash';
-import ProjectRepository from '../repositories/project';
-import Request from '../utils/request';
+import {Calculate, Request} from '../utils';
+import {IssueRepository, ProjectRepository} from '../repositories';
+import { map, omit, pick, split } from 'lodash';
 import config from 'configs';
 
 class ProjectView {
@@ -30,6 +30,23 @@ class ProjectView {
     }));
 
     return projects;
+  }
+
+  static async updateMetrics() {
+    const projects = await ProjectRepository.findAll();
+    
+    for (const project of projects) {
+      const issues = await IssueRepository.findAll(0, 25, { projectId: project.id });
+      const fixedTimes = map(issues, issue => issue.fixedTime);
+      const avgTimeIssue = Calculate.avg(fixedTimes);
+      const stdTimeIssue = Calculate.standartDeviation(fixedTimes, avgTimeIssue);
+      
+      await ProjectRepository.update({ 
+        id: project.id,
+        avgTimeIssue,
+        stdTimeIssue
+      });
+    }
   }
 
 }

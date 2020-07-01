@@ -14,7 +14,16 @@ module.exports = {
         allowNull: false
       },
       openIssues: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        default: 0
+      },
+      avgTimeIssue: {
+        type: Sequelize.INTEGER,
+        default: 0
+      },
+      stdTimeIssue: {
+        type: Sequelize.INTEGER,
+        default: 0
       },
       contributors: {
         type: Sequelize.INTEGER,

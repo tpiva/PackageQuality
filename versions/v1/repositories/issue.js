@@ -39,6 +39,21 @@ class IssueRespository {
       return await this.create(issue);
     }
   }
+
+  async findAll(page, limit, query) {
+    const offset = page * limit;
+    const { rows, count } = await models.Issue.findAndCountAll({
+      where: query,
+      limit,
+      offset
+    });
+    
+    if (offset >= count) {
+      return [];
+    } else {
+      return rows.concat(await this.findAll(page + 1, limit, query));
+    }
+  }
 }
 
 export default new IssueRespository();
