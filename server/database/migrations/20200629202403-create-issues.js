@@ -2,28 +2,36 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('issues', {
+    await queryInterface.createTable('Issues', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
         allowNull: false
       },
-      status: {
+      state: {
         type: Sequelize.STRING
       },
       projectId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'projects',
+          model: 'Projects',
           key: 'id'
         }
       },
-      created: {
+      fixedTime: {
+        type: Sequelize.INTEGER
+      },
+      createdTime: {
         type: Sequelize.DATE
       },
-      updated: {
+      closedTime: {
+        type: Sequelize.DATE
+      },
+      createdAt: {
+        type: Sequelize.DATE
+      },
+      updatedAt: {
         type: Sequelize.DATE
       }
     });
@@ -31,6 +39,6 @@ module.exports = {
 
   // eslint-disable-next-line no-unused-vars
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('issues');
+    await queryInterface.dropTable('Issues');
   }
 };
