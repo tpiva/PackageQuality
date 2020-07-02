@@ -69,7 +69,9 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/Project'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
         default:
           description: Unexpected error
           content:

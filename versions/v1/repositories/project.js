@@ -40,10 +40,8 @@ class ProjectRespository {
     }
   }
 
-  async findAll() {
-    const projects = await models.Project.findAll({
-      attributes: ['id', 'name']
-    });
+  async findAll(options = {}) {
+    const projects = await models.Project.findAll(options);
 
     return projects;
   }

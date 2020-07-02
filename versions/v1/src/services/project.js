@@ -1,21 +1,28 @@
 import { ProjectRepository } from '../../repositories';
+import { map } from 'lodash';
 
 class ProjectService {
 
   async getMetrics(projectName) {
-    const entity = await ProjectRepository.findOne({
-      where: {
-        name: projectName
-      }
-    });
-    const project = {
+    let options = {};
+    if (projectName) {
+      options = {
+        where: {
+          name: projectName
+        }
+      };
+    }
+
+    const entities = await ProjectRepository.findAll(options);
+
+    const projects = map(entities, entity => ({
       id: entity.id,
       issues: entity.openIssues,
       avg: entity.avgTimeIssue,
       std: entity.stdTimeIssue,
-    };
+    }));
 
-    return project;
+    return projects;
   }
 }
 

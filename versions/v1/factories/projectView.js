@@ -33,7 +33,7 @@ class ProjectView {
   }
 
   static async updateMetrics() {
-    const projects = await ProjectRepository.findAll();
+    const projects = await ProjectRepository.findAll({ attributes: [ 'id', 'name' ]});
     
     for (const project of projects) {
       const issues = await IssueRepository.findAll(0, 25, { projectId: project.id });

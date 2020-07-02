@@ -8,7 +8,7 @@ class IssueView {
 
   static async sync() {
     const repositories = split(config.PROJECT_REPOSITORIES, ',');
-    const projects = await ProjectRepository.findAll();
+    const projects = await ProjectRepository.findAll({ attributes: [ 'id', 'name' ]});
     await Promise.all(forEach(projects, async project => {
       const repositoryPath = find(repositories, repository => includes(repository, project.name));
 
