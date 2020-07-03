@@ -1,10 +1,12 @@
 import { handlerError, handlerSuccess } from './middlewares';
 import Koa from 'koa';
+import KoaBody from 'koa-body';
 import KoaRouter from 'koa-router';
 import { configureLogger } from './logger/logger';
 import cors from '@koa/cors';
 import { oas } from 'koa-oas3';
 import versions from './versions';
+
 export default async () => {
   configureLogger();
   const app = await init();
@@ -16,6 +18,7 @@ async function init() {
   app.use(cors());
   app.use(handlerError);
   app.use(handlerSuccess);
+  app.use(KoaBody());
 
   // Root of the application
   const appRouter = new KoaRouter();
