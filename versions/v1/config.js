@@ -1,5 +1,6 @@
 import SwaggerParser from 'swagger-parser';
 import routes from './routes';
+import { syncAll } from './src/factories';
 import yamljs from 'yamljs';
 
 // load YAML swagger file
@@ -16,5 +17,6 @@ SwaggerParser.validate(document, (err) => {
 export default {
   swaggerConfig: document,
   routes,
-  basePath: `/${__dirname.split('/').slice(-1).pop()}`
+  basePath: `/${__dirname.split('/').slice(-1).pop()}`,
+  factory: syncAll
 };

@@ -5,6 +5,7 @@ import KoaRouter from 'koa-router';
 import { configureLogger } from './logger/logger';
 import cors from '@koa/cors';
 import { oas } from 'koa-oas3';
+import scheduler from './jobs/scheduler';
 import versions from './versions';
 
 export default async () => {
@@ -38,8 +39,11 @@ async function init() {
     const router = new KoaRouter({
       prefix: config.basePath
     });
+
     config.routes(router);
     app.use(router.routes());
+
+    scheduler.start(config.factory);
   }
 
   return app;
