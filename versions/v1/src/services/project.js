@@ -1,4 +1,4 @@
-import { ProjectRepository } from '../../repositories';
+import { ProjectRepository } from '../repositories';
 import { map } from 'lodash';
 
 class ProjectService {
