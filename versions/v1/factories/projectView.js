@@ -24,8 +24,7 @@ class ProjectView {
 
       return ProjectRepository.createOrUpdate({
         id: data.id,
-        name: data.name,
-        openIssues: data.open_issues
+        name: data.name
       });
     }));
 
@@ -33,7 +32,8 @@ class ProjectView {
   }
 
   static async updateMetrics() {
-    const projects = await ProjectRepository.findAll({ attributes: [ 'id', 'name' ]});
+    const projects = await ProjectRepository.findAll({ attributes: ['id', 'name'] });
+    const totalIssue = await IssueRepository.findCount();
     
     for (const project of projects) {
       const issues = await IssueRepository.findAll(0, 25, { projectId: project.id });
@@ -43,6 +43,7 @@ class ProjectView {
       
       await ProjectRepository.update({ 
         id: project.id,
+        openIssues: totalIssue,
         avgTimeIssue,
         stdTimeIssue
       });

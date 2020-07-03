@@ -55,6 +55,11 @@ class IssueRespository {
     }
   }
 
+  async findCount() {
+    const { count } = await models.Issue.findAndCountAll({});
+    return count;
+  }
+
   async findOne(query) {
     const issue = await models.Issue.findOne(query);
     return issue;
