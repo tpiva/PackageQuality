@@ -31,6 +31,7 @@ npm run db:seed
 
 ### Run server
 
+**We strongly recommend to make a request to endpoint /v1/scheduler/sync to initalize database with Github projects, it'll do a sync**
 
 After database is instanced to run server, it's just necessary to run command - **.env** should exists:
 ```
