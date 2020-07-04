@@ -6,6 +6,12 @@ At moment only 3 open sources can be compare: [React](https://github.com/faceboo
 ## How use
 This project needs a database Postgres, so that It's neccessary to have it install and running in your machine. **If you don't have**, please follow steps in next session.
 
+### Github token
+
+It's necessary to add GitHub token to this project works. See [Github token](https://docs.github.com/pt/github/authenticating-to-github/creating-a-personal-access-token) 
+
+The access token needs to be in enviroment: GITHUB_TOKEN
+
 ### Instancing database and initializing it
 
 First of all install all dependecies of project by command:
