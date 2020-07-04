@@ -8,6 +8,7 @@ servers:
   - url: http://localhost:3000
 tags: 
 - name: "projects"
+- name: "scheduler"
 paths:
   /:
     get:
@@ -115,7 +116,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    
+  /v1/scheduler/sync:
+    post:
+      tags:
+        - "scheduler"
+      summary: Start sync
+      description: Start sync with github to populate database
+      responses:
+        '200':
+          description: An success
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     Project:
