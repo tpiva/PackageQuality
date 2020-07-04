@@ -3,10 +3,6 @@ Simple tool to compare open source libs in Github.
 
 At moment only 3 open sources can be compare: [React](https://github.com/facebook/react), [Angular](https://github.com/angular/angular) and [Vue](https://github.com/vuejs/vue)
 
-## Architecture
-
-## Database
-
 ## How use
 This project needs a database Postgres, so that It's neccessary to have it install and running in your machine. **If you don't have**, please follow steps in next session.
 
@@ -49,3 +45,26 @@ npm run start
 ```
 npm run test
 ```
+
+## Routes Documentation
+All routes are document on swagger
+Link: http://localhost:3000/v1/swagger
+
+## Libs
+
+### Production:
+- [koa](https://koajs.com/): Make the code more easible to read and implement.
+- [dotenv](https://www.npmjs.com/package/dotenv): Load enviroment into code
+- [lodash](https://lodash.com/docs/4.17.15): It has a huge number of helper's functions that make the code more declarative.
+- [log4js](https://www.npmjs.com/package/log4js): Log everthing make on code, more easily to see what happens in case any bug
+- [node-schedule](https://www.npmjs.com/package/node-schedule): Widely used scheduler to run at an period of day to dowload every data from github.
+- [sequelize](https://sequelize.org/): Easily ORM to transpile database into models and make easily to migrate database during any change
+- [app-module-path](https://www.npmjs.com/package/app-module-path): Make easily to import module without **require** or **import** be big.
+
+### Development
+- [eslint](https://eslint.org/): Static analyzer of code, it can found error into code making the code more robust
+- [babel](https://www.npmjs.com/package/@babel/node): Transpiler to ES6 features.
+- [chai](https://www.chaijs.com/): Help to make assertions for test
+- [mocha](https://mochajs.org/): Framework used to make some tests in javascript.
+- [sinon](https://sinonjs.org/): Lib used to make more easily mock and spy some functions, classes and other stuffs in javascript
+- [supertest](https://www.npmjs.com/package/supertest): Use to make easily HTTP test
