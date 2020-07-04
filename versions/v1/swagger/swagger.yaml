@@ -91,7 +91,9 @@ paths:
           description: Names of projects
           required: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
           style: form
           explode: true
           example: angular, react, vue
@@ -124,10 +126,13 @@ components:
           readOnly: true
         issues:
           type: integer
+          nullable: true
         avg:
           type: integer
+          nullable: true
         std:
           type: integer
+          nullable: true
     Error:
       type: object
       required:

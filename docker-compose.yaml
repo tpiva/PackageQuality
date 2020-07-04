@@ -3,10 +3,12 @@ version: '3'
 services:
   postgres_db:
     image: postgres
-    container_name: postgres
+    container_name: postgres_test
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: test
-    ports:
-      - 5432:5432
+      POSTGRES_DB: lib_quality
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql

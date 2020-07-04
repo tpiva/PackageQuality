@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node index.js",
-    "test": "mocha --colors -require=dotenv/config --require @babel/register --require versions/v*/tests/helpers \"versions/v*/**/**/*@(.spec.js)\" --timeout 20000 --exit",
-    "test:watch": "npm run test -- --watch",
-    "lint": "eslint ./src -- --ext .json",
-    "lint:fix": "npm run lint -- --fix",
-    "db:create": "node_modules/.bin/sequelize db:migrate",
+    "test": "NODE_ENV=test mocha --colors -require=dotenv/config --require @babel/register --require versions/v*/tests/helpers \"versions/v*/**/**/*@(.spec.js)\" --timeout 20000 --exit",
+    "test:watch": "NODE_ENV=test npm run test -- --watch",
+    "lint": "eslint ./versions/v*/src ./versions/v*/test ./server --ext .json --ext .js",
+    "lint:fix": "eslint ./versions/v*/src ./versions/v*/test ./server --ext .json --ext .js --fix",
+    "db:create": "sequelize-cli db:migrate",
     "db:seed": "sequelize-cli db:seed:all"
   },
   "keywords": [
@@ -54,8 +54,14 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-json": "^2.1.1",
     "eslint-plugin-node": "^11.1.0",
+    "husky": "^4.2.5",
     "mocha": "^8.0.1",
     "sinon": "^9.0.2",
     "supertest": "^4.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }

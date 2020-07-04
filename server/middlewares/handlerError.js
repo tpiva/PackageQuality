@@ -7,7 +7,7 @@ export default async function (ctx, next) {
   } catch (error) {
     log.error(JSON.stringify(error));
     ctx.status = error.status || 500;
-    ctx.body = error.message;
+    ctx.body = error.message || 'Internal server error';
     ctx.app.emit('error', error, ctx);
   }
 }

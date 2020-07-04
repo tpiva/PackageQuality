@@ -1,4 +1,4 @@
-import { ProjectRepository } from '../../repositories';
+import { ProjectRepository } from '../../src/repositories';
 import ProjectService from '../../src/services/project';
 import sinon from 'sinon';
 
@@ -8,7 +8,7 @@ describe('Project Service', () => {
   before(() => {
     stub = sinon.stub(ProjectRepository, 'findAll').returns([
       {
-        id: '1234',
+        id: 1234,
         issues: 10,
         avg: 2,
         std: 3,
