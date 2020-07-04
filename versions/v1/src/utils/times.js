@@ -6,6 +6,7 @@ class Times {
     }
 
     const difference = Math.abs(Date.parse(end) - Date.parse(start));
+    // convert difference of dates into day units
     return Math.ceil(difference / (1000 * 3600 * 24));
   }
 }

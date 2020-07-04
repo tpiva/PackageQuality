@@ -3,17 +3,25 @@ import { Request, Times } from '../utils';
 import { find, forEach, includes, split } from 'lodash';
 import ProjectView from './projectView';
 import config from 'configs';
+import log4js from 'log4js';
+
+const log = log4js.getLogger('issue-view');
 
 class IssueView {
 
   static async sync() {
-    const repositories = split(config.PROJECT_REPOSITORIES, ',');
-    const projects = await ProjectRepository.findAll({ attributes: [ 'id', 'name' ]});
-    await Promise.all(forEach(projects, async project => {
-      const repositoryPath = find(repositories, repository => includes(repository, project.name));
+    try {
+      const repositories = split(config.PROJECT_REPOSITORIES, ',');
+      const projects = await ProjectRepository.findAll({ attributes: [ 'id', 'name' ]});
+      await Promise.all(forEach(projects, async project => {
+        const repositoryPath = find(repositories, repository => includes(repository, project.name));
 
-      await this._download(repositoryPath, project.id, 1);
-    }));
+        await this._download(repositoryPath, project.id, 1);
+      }));
+    } catch (error) {
+      log.error('Error during sync of issueView...');
+      log.error(JSON.stringfy(error));
+    }
   }
 
   static async _download(repositoryPath, projectId, page) {
