@@ -58,6 +58,7 @@ paths:
           required: false
           schema:
             type: string
+          example: react or angular or vue
       responses:
         '200':
           description: An project object
@@ -72,6 +73,40 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Project'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/projects/history:
+    get:
+      tags:
+        - "projects"
+      summary: Project history in days
+      description: Return a list of issues closed by day to use in graph
+      parameters: 
+        - name: projectNames
+          in: query
+          description: Names of projects
+          required: false
+          schema:
+            type: string
+          style: form
+          explode: true
+          example: angular, react, vue
+      responses:
+        '200':
+          description: An project object
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
         default:
           description: Unexpected error
           content:

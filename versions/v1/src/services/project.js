@@ -1,4 +1,5 @@
-import { ProjectRepository } from '../repositories';
+import { IssueRepository, ProjectRepository } from '../repositories';
+import { Op } from 'sequelize';
 import { map } from 'lodash';
 
 class ProjectService {
@@ -23,6 +24,25 @@ class ProjectService {
     }));
 
     return projects;
+  }
+
+  async getHistory(projectsName) {
+    const listHistory = {};
+
+    const projects = await ProjectRepository.findAll({
+      where: {
+        name: {
+          [Op.in]: projectsName
+        }
+      },
+      attributes: ['id', 'name']
+    });
+
+    for (const project of projects) {
+      listHistory[project.name] = await IssueRepository.getClosedIssuesByDay(project.id);
+    }
+
+    return listHistory;
   }
 }
 

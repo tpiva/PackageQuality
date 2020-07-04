@@ -64,6 +64,17 @@ class IssueRespository {
     const issue = await models.Issue.findOne(query);
     return issue;
   }
+
+  async getClosedIssuesByDay(projectId) {
+    const issues = await models.sequelize.query(
+      'SELECT date_trunc(\'day\', "closedTime") as day, count(1) FROM public."Issues" ' +
+      'WHERE "projectId" = $1 GROUP BY 1 ORDER BY day ASC', {
+        bind: [projectId],
+        type: models.sequelize.QueryTypes.SELECT
+      });
+
+    return issues;
+  }
 }
 
 export default new IssueRespository();
