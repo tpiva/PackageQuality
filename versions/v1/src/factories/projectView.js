@@ -10,6 +10,7 @@ class ProjectView {
 
   async sync() {
     try {
+      log.info('Syncing projects from github API');
       const repositories = split(config.PROJECT_REPOSITORIES, ',');
       for (const repository of repositories) {
         const result = await Request.do({
@@ -31,6 +32,7 @@ class ProjectView {
           name: data.name
         });
       }
+      log.info('Finished sync project from github API');
     } catch (error) {
       log.error('Error during sync of projectView...');
       log.error(JSON.stringify(error));
@@ -51,7 +53,7 @@ class ProjectView {
         
         await ProjectRepository.update({ 
           id: project.id,
-          openIssues: totalIssue,
+          totalIssues: totalIssue,
           avgTimeIssue,
           stdTimeIssue
         });

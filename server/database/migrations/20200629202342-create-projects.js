@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      openIssues: {
+      totalIssues: {
         type: Sequelize.INTEGER,
         default: 0
       },

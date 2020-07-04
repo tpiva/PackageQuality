@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     name: DataTypes.STRING,
-    openIssues: DataTypes.INTEGER,
+    totalIssues: DataTypes.INTEGER,
     avgTimeIssue: DataTypes.INTEGER,
     stdTimeIssue: DataTypes.INTEGER
   }, {});

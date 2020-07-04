@@ -1,5 +1,8 @@
+import log4js from 'log4js';
 import models from 'server/database/models';
 import { omit } from 'lodash';
+
+const log = log4js.getLogger('issue-repository');
 
 class ProjectRespository {
 
@@ -7,7 +10,8 @@ class ProjectRespository {
     let newProject;
     try {
       newProject = await models.Project.create(project);
-    } catch(error) {
+    } catch (error) {
+      log.error(JSON.stringify(error));
     }
 
     return newProject;
@@ -21,7 +25,8 @@ class ProjectRespository {
           id: project.id
         }
       });
-    } catch(error) {
+    } catch (error) {
+      log.error(JSON.stringify(error));
     }
 
     return updateProject;

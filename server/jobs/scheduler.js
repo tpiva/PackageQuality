@@ -7,6 +7,8 @@ class Scheduler {
 
   start(factory) { 
     // run every midnight to update project and issues of the day.
+    // for tests */5 * * * *
+    // this.job = schedule.scheduleJob('*/5 * * * *', factory);
     this.job = schedule.scheduleJob('0 0 * * *', factory);
   }
 

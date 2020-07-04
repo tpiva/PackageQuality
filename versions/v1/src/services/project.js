@@ -3,7 +3,7 @@ import { Op } from 'sequelize';
 import log4js from 'log4js';
 import { map } from 'lodash';
 
-const log = log4js.getLogger('src-project-services');
+const log = log4js.getLogger('project-services');
 
 class ProjectService {
 
@@ -22,7 +22,7 @@ class ProjectService {
 
       const projects = map(entities, entity => ({
         id: entity.id,
-        issues: entity.openIssues,
+        issues: entity.totalIssues,
         avg: entity.avgTimeIssue,
         std: entity.stdTimeIssue,
       }));

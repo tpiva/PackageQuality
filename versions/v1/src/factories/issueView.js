@@ -13,6 +13,7 @@ class IssueView {
     try {
       const repositories = split(config.PROJECT_REPOSITORIES, ',');
       const projects = await ProjectRepository.findAll({ attributes: ['id', 'name'] });
+      log.info('Syncing issue from github API...');
       for (const project of projects) {
         const repositoryPath = find(repositories, repository => includes(repository, project.name));
         if (repositoryPath) {
@@ -24,10 +25,12 @@ class IssueView {
 
           // find lasted inserted
           const sinceParam = latestIssue && latestIssue !== null ? latestIssue.createdTime : '2020-06-30T19:10:27Z';
+          log.info(`Latests issues createdTime param: ${sinceParam}`);
           await this._download(repositoryPath, project.id, 1, sinceParam);
         }
         
       }
+      log.info('Finished sync issue from github API');
     } catch (error) {
       log.error('Error during sync of issueView...');
       log.error(JSON.stringify(error));
@@ -66,6 +69,7 @@ class IssueView {
       
       await ProjectView.updateMetrics();
     } catch (error) {
+      log.error(`Error during dowload issues from Github. Error: ${error}`);
       return;
     }
   }
