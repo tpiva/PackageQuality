@@ -8,10 +8,10 @@ const log = log4js.getLogger('project-view');
 
 class ProjectView {
 
-  static async sync() {
+  async sync() {
     try {
       const repositories = split(config.PROJECT_REPOSITORIES, ',');
-      const projects = await Promise.all(map(repositories, async repository => {
+      for (const repository of repositories) {
         const result = await Request.do({
           baseURL: config.GITHUB_API_BASE_URL
         }, {
@@ -26,26 +26,24 @@ class ProjectView {
           'id', 'name', 'full_name', 'open_issues'
         ]);
 
-        return ProjectRepository.createOrUpdate({
+        await ProjectRepository.createOrUpdate({
           id: data.id,
           name: data.name
         });
-      }));
-
-      return projects;
+      }
     } catch (error) {
       log.error('Error during sync of projectView...');
-      log.error(JSON.stringfy(error));
+      log.error(JSON.stringify(error));
     }
     
   }
 
-  static async updateMetrics() {
+  async updateMetrics() {
     try {
       const projects = await ProjectRepository.findAll({ attributes: ['id', 'name'] });
-      const totalIssue = await IssueRepository.findCount();
       
       for (const project of projects) {
+        const totalIssue = await IssueRepository.count({ where: { projectId: project.id }});
         const issues = await IssueRepository.findAll(0, 25, { projectId: project.id });
         const fixedTimes = map(issues, issue => issue.fixedTime);
         const avgTimeIssue = Calculate.avg(fixedTimes);
@@ -60,10 +58,10 @@ class ProjectView {
       }
     } catch (error) {
       log.error('Error during updateMetrics of projectView...');
-      log.error(JSON.stringfy(error));
+      log.error(JSON.stringify(error));
     }
   }
 
 }
 
-export default ProjectView;
+export default new ProjectView();

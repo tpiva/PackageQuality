@@ -29,7 +29,7 @@ class ProjectService {
 
       return projects;
     } catch(error) {
-      log.error(JSON.stringfy(error));
+      log.error(JSON.stringify(error));
       throw error;
     }
     
@@ -54,7 +54,7 @@ class ProjectService {
 
       return listHistory;
     } catch(error) {
-      log.error(JSON.stringfy(error));
+      log.error(JSON.stringify(error));
     }
   }
 }

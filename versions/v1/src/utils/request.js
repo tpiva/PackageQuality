@@ -4,10 +4,11 @@ class Request {
   static async do(config, options = {}) {
     try {
       const client = axios.create(config);
-      const { data } = await client(options);
+      const result = await client(options);
 
-      return data;
-    } catch(error) {
+      return result.data;
+    } catch (error) {
+      console.log(error)
     }
   }
 }

@@ -1,6 +1,6 @@
 import { IssueRepository, ProjectRepository } from '../repositories';
 import { Request, Times } from '../utils';
-import { find, forEach, includes, split } from 'lodash';
+import { find, includes, split } from 'lodash';
 import ProjectView from './projectView';
 import config from 'configs';
 import log4js from 'log4js';
@@ -9,35 +9,38 @@ const log = log4js.getLogger('issue-view');
 
 class IssueView {
 
-  static async sync() {
+  async sync() {
     try {
       const repositories = split(config.PROJECT_REPOSITORIES, ',');
-      const projects = await ProjectRepository.findAll({ attributes: [ 'id', 'name' ]});
-      await Promise.all(forEach(projects, async project => {
+      const projects = await ProjectRepository.findAll({ attributes: ['id', 'name'] });
+      for (const project of projects) {
         const repositoryPath = find(repositories, repository => includes(repository, project.name));
+        if (repositoryPath) {
+          const latestIssue = await IssueRepository.findOne({
+            where: { projectId: project.id },
+            attributes: [ 'createdTime' ],
+            order: [['createdTime', 'DESC']]
+          });
 
-        await this._download(repositoryPath, project.id, 1);
-      }));
+          // find lasted inserted
+          const sinceParam = latestIssue && latestIssue !== null ? latestIssue.createdTime : '2020-06-30T19:10:27Z';
+          await this._download(repositoryPath, project.id, 1, sinceParam);
+        }
+        
+      }
     } catch (error) {
       log.error('Error during sync of issueView...');
-      log.error(JSON.stringfy(error));
+      log.error(JSON.stringify(error));
     }
   }
 
-  static async _download(repositoryPath, projectId, page) {
+  async _download(repositoryPath, projectId, page, sinceParam) {
     try {
       let result = 0;
 
       do {
-        // find lasted inserted
-        const latestIssue = await IssueRepository.findOne({
-          attributes: [ 'createdTime' ],
-          order: [['createdTime', 'DESC']]
-        });
-        const sinceParam = latestIssue ? latestIssue.createdTime : '2020-06-01T19:10:27Z';
         result = await Request.do({
-          baseURL: config.GITHUB_API_BASE_URL,
-          maxAge: 15 * 60 * 1000
+          baseURL: config.GITHUB_API_BASE_URL
         }, {
           method: 'GET',
           url: `repos/${repositoryPath}/issues?page=${page}&state=closed&per_page=100&since=${sinceParam}`,
@@ -46,17 +49,17 @@ class IssueView {
           }
         });
     
-        await Promise.all(forEach(result, async issue => {
+        for (const issue of result) {
           await IssueRepository.createOrUpdate({
             id: issue.id,
             state: issue.state,
             createdTime: Date.parse(issue.created_at),
-            closedTime: Date.parse(issue.closed_at),
+            closedTime: issue.closed_at !== null ? Date.parse(issue.closed_at) : null,
             projectId: projectId,
             fixedTime: issue.closed_at !== null ?
               Times.timeInDays(issue.created_at, issue.closed_at) : 0
           });
-        }));
+        }
 
         page += 1;
       } while (Array.isArray(result) && result.length > 0);
@@ -68,4 +71,4 @@ class IssueView {
   }
 }
 
-export default IssueView;
+export default new IssueView();
