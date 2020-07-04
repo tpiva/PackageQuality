@@ -7,8 +7,8 @@
     "start": "babel-node index.js",
     "test": "NODE_ENV=test mocha --colors -require=dotenv/config --require @babel/register --require versions/v*/tests/helpers \"versions/v*/**/**/*@(.spec.js)\" --timeout 20000 --exit",
     "test:watch": "NODE_ENV=test npm run test -- --watch",
-    "lint": "eslint ./versions/v*/src ./versions/v*/test ./server --ext .json --ext .js",
-    "lint:fix": "eslint ./versions/v*/src ./versions/v*/test ./server --ext .json --ext .js --fix",
+    "lint": "eslint ./versions/v*/src ./versions/v*/tests ./server --ext .json --ext .js",
+    "lint:fix": "eslint ./versions/v*/src ./versions/v*/tests ./server --ext .json --ext .js --fix",
     "db:create": "sequelize-cli db:migrate",
     "db:seed": "sequelize-cli db:seed:all"
   },
