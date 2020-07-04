@@ -31,6 +31,8 @@ npm run db:seed
 
 ### Run server
 
+**We strongly recommend to make a request to endpoint /v1/scheduler/sync to initalize database with Github projects, it'll do a sync**
+
 After database is instanced to run server, it's just necessary to run command - **.env** should exists:
 ```
 npm run start
@@ -68,3 +70,4 @@ Link: http://localhost:3000/v1/swagger
 - [mocha](https://mochajs.org/): Framework used to make some tests in javascript.
 - [sinon](https://sinonjs.org/): Lib used to make more easily mock and spy some functions, classes and other stuffs in javascript
 - [supertest](https://www.npmjs.com/package/supertest): Use to make easily HTTP test
+- [husky](https://www.npmjs.com/package/husky): Run scripts before commits to avoid erros, in this project we use to run eslint to found issues.
