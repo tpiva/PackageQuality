@@ -43,7 +43,7 @@ async function init() {
     config.routes(router);
     app.use(router.routes());
 
-    // scheduler.start(config.factory);
+    scheduler.start(config.factory);
   }
 
   return app;

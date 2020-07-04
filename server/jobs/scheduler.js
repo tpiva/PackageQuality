@@ -6,7 +6,8 @@ const log = log4js.getLogger('jobs-scheduler');
 class Scheduler {
 
   start(factory) { 
-    this.job = schedule.scheduleJob('*/1 * * * *', factory);
+    // run every midnight to update project and issues of the day.
+    this.job = schedule.scheduleJob('0 0 * * *', factory);
   }
 
   stop() {
