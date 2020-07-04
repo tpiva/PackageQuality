@@ -52,7 +52,15 @@ npm run test
 All routes are document on swagger
 Link: http://localhost:3000/v1/swagger
 
+## Future features
+
+1. Add jwt token to authentication requests.
+2. Add state of connection with database in health route.
+3. Make phase 3 with more info about projects.
+
 ## Libs
+
+3rd party libs used.
 
 ### Production:
 - [koa](https://koajs.com/): Make the code more easible to read and implement.
