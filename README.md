@@ -1,4 +1,4 @@
-# LibQuality
+# PackageQuality
 Simple tool to compare open source libs in Github.
 
 At moment only 3 open sources can be compare: [React](https://github.com/facebook/react), [Angular](https://github.com/angular/angular) and [Vue](https://github.com/vuejs/vue)
@@ -19,7 +19,7 @@ First of all install all dependecies of project by command:
 npm run install
 ```
 
-1. At the main folder of LibQuality project run command:
+1. At the main folder of PackageQuality project run command:
 ```
 docker-compose up
 ```
